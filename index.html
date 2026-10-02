@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Surprise 💙</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,.45), transparent 25%),
+        radial-gradient(circle at 85% 85%, rgba(255,255,255,.3), transparent 30%),
+        linear-gradient(135deg, #dff7ff, #9bdcf7, #58b5e6);
+    color: #174d70;
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+    animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    width: 100%;
+    max-width: 560px;
+    padding: 35px 25px;
+    background: rgba(255,255,255,.95);
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(20,90,130,.25);
+}
+
+.card h1 {
+    font-size: 30px;
+    color: #17618e;
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-size: 25px;
+    color: #17618e;
+    margin-bottom: 18px;
+}
+
+.card p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #315d76;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 25px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #238bc1, #17618e);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(23,97,142,.3);
+    transition: .25s;
+}
+
+button:active {
+    transform: scale(.94);
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    color: rgba(255,255,255,.65);
+    font-size: 22px;
+    pointer-events: none;
+    animation: floatUp 7s linear infinite;
+}
+
+.heart:nth-of-type(1) {
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.heart:nth-of-type(2) {
+    left: 30%;
+    animation-delay: 2s;
+}
+
+.heart:nth-of-type(3) {
+    left: 55%;
+    animation-delay: 4s;
+}
+
+.heart:nth-of-type(4) {
+    left: 80%;
+    animation-delay: 1s;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(.8);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) scale(1.3);
+        opacity: 0;
+    }
+}
+
+/* =========================
+   GIFT
+========================= */
+
+.gift-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0 15px;
+}
+
+.gift {
+    position: relative;
+    width: 200px;
+    height: 190px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.gift:active {
+    transform: scale(.94);
+}
+
+.gift-box {
+    position: absolute;
+    width: 150px;
+    height: 120px;
+    left: 25px;
+    bottom: 0;
+    border-radius: 8px 8px 15px 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #176b9e 0%,
+            #36a0d5 42%,
+            #176b9e 43%,
+            #176b9e 57%,
+            #36a0d5 58%,
+            #176b9e 100%
+        );
+
+    box-shadow: 0 15px 25px rgba(17,83,120,.3);
+}
+
+.gift-lid {
+    position: absolute;
+    width: 175px;
+    height: 40px;
+    left: 12px;
+    top: 38px;
+    border-radius: 8px;
+    z-index: 3;
+
+    background:
+        linear-gradient(
+            90deg,
+            #155f90 0%,
+            #36a0d5 42%,
+            #155f90 43%,
+            #155f90 57%,
+            #36a0d5 58%,
+            #155f90 100%
+        );
+
+    box-shadow: 0 7px 12px rgba(17,83,120,.25);
+    transition: 1s;
+}
+
+.gift-box::after,
+.gift-lid::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #9ce3ff;
+}
+
+.bow {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    width: 75px;
+    height: 45px;
+    transform: translateX(-50%);
+    z-index: 5;
+    transition: 1s;
+}
+
+.bow::before,
+.bow::after {
+    content: "";
+    position: absolute;
+    width: 43px;
+    height: 30px;
+    top: 0;
+    background: #9ce3ff;
+    border-radius: 50% 50% 10% 50%;
+}
+
+.bow::before {
+    right: 34px;
+    transform: rotate(-25deg);
+}
+
+.bow::after {
+    left: 34px;
+    transform: rotate(25deg) scaleX(-1);
+}
+
+.gift.open .gift-lid {
+    transform: translateY(-75px) rotate(-8deg);
+}
+
+.gift.open .bow {
+    transform: translateX(-50%) translateY(-75px);
+}
+
+/* =========================
+   BOUQUET
+========================= */
+
+.bouquet {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto 5px;
+}
+
+/* stems */
+
+.stem {
+    position: absolute;
+    width: 7px;
+    height: 165px;
+    left: 50%;
+    top: 82px;
+    background: #4d9b67;
+    border-radius: 10px;
+    transform-origin: top center;
+}
+
+/* leaves */
+
+.leaf {
+    position: absolute;
+    width: 58px;
+    height: 25px;
+    background: #63aa77;
+    border-radius: 100% 0 100% 0;
+}
+
+.leaf.left {
+    left: 78px;
+    top: 180px;
+    transform: rotate(-25deg);
+}
+
+.leaf.right {
+    right: 78px;
+    top: 195px;
+    transform: rotate(25deg) scaleX(-1);
+}
+
+/* flowers */
+
+.flower {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    z-index: 3;
+}
+
+.flower.one {
+    left: 105px;
+    top: 0;
+}
+
+.flower.two {
+    left: 25px;
+    top: 45px;
+}
+
+.flower.three {
+    right: 25px;
+    top: 45px;
+}
+
+.flower.four {
+    left: 58px;
+    top: 105px;
+}
+
+.flower.five {
+    right: 58px;
+    top: 105px;
+}
+
+.petal {
+    position: absolute;
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    background: #f1fbff;
+    box-shadow: 0 3px 8px rgba(25,100,140,.15);
+}
+
+.petal.p1 {
+    left: 23px;
+    top: 0;
+}
+
+.petal.p2 {
+    left: 0;
+    top: 23px;
+}
+
+.petal.p3 {
+    right: 0;
+    top: 23px;
+}
+
+.petal.p4 {
+    left: 23px;
+    bottom: 0;
+}
+
+.flower-center {
+    position: absolute;
+    width: 31px;
+    height: 31px;
+    left: 29px;
+    top: 29px;
+    border-radius: 50%;
+    background: #f8d66d;
+    box-shadow:
+        inset 0 0 0 5px #f5c94c,
+        0 3px 8px rgba(0,0,0,.15);
+    z-index: 4;
+}
+
+/* =========================
+   MESSAGE CARD
+========================= */
+
+.message-card {
+    max-height: 82vh;
+    overflow-y: auto;
+}
+
+.message-card h2 {
+    font-size: 24px;
+}
+
+.message-card p {
+    text-align: left;
+    font-size: 15.5px;
+    line-height: 1.85;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+.final-note {
+    margin-top: 25px;
+    text-align: center !important;
+    font-size: 16px !important;
+    font-weight: bold;
+    color: #17618e !important;
+}
+
+.final-hug {
+    margin-top: 20px;
+    font-size: 38px;
+    letter-spacing: 5px;
+    animation: hugPop .8s ease;
+}
+
+@keyframes hugPop {
+    from {
+        opacity: 0;
+        transform: scale(.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 420px) {
+
+    .card {
+        padding: 28px 20px;
+    }
+
+    .card h1 {
+        font-size: 26px;
+    }
+
+    .card h2 {
+        font-size: 22px;
+    }
+
+    .card p {
+        font-size: 14.5px;
+    }
+
+    .bouquet {
+        transform: scale(.85);
+        margin-top: -15px;
+        margin-bottom: -15px;
+    }
+
+    button {
+        font-size: 15px;
+        padding: 13px 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING HEARTS -->
+
+<div class="heart">♡</div>
+<div class="heart">♡</div>
+<div class="heart">♡</div>
+<div class="heart">♡</div>
+
+
+<!-- YOUR OWN VOICE RECORDING -->
+
+<audio id="bgMusic" loop>
+    <source src="bgmusic.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- =========================
+     SCREEN 1
+========================= -->
+
+<section class="screen active" id="screen1">
+
+    <div class="card">
+
+        <div style="font-size:60px; margin-bottom:15px;">
+            💙
+        </div>
+
+        <h1>I have a little surprise for you</h1>
+
+        <p>
+            Nothing big. Just something I wanted you to have.
+        </p>
+
+        <button onclick="startSurprise()">
+            Open it 🎁
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCREEN 2
+========================= -->
+
+<section class="screen" id="screen2">
+
+    <div class="card">
+
+        <h2>Something's waiting for you 🎁</h2>
+
+        <p>
+            Tap the gift.
+        </p>
+
+        <div class="gift-area">
+
+            <div class="gift" id="gift" onclick="openGift()">
+
+                <div class="bow"></div>
+
+                <div class="gift-lid"></div>
+
+                <div class="gift-box"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SCREEN 3
+========================= -->
+
+<section class="screen" id="screen3">
+
+    <div class="card">
+
+        <div class="bouquet">
+
+            <!-- stems -->
+
+            <div class="stem" style="transform:rotate(-25deg);"></div>
+            <div class="stem" style="transform:rotate(-12deg);"></div>
+            <div class="stem" style="transform:rotate(0deg);"></div>
+            <div class="stem" style="transform:rotate(12deg);"></div>
+            <div class="stem" style="transform:rotate(25deg);"></div>
+
+            <!-- leaves -->
+
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+
+            <!-- flower 1 -->
+
+            <div class="flower one">
+
+                <span class="petal p1"></span>
+                <span class="petal p2"></span>
+                <span class="petal p3"></span>
+                <span class="petal p4"></span>
+
+                <span class="flower-center"></span>
+
+            </div>
+
+            <!-- flower 2 -->
+
+            <div class="flower two">
+
+                <span class="petal p1"></span>
+                <span class="petal p2"></span>
+                <span class="petal p3"></span>
+                <span class="petal p4"></span>
+
+                <span class="flower-center"></span>
+
+            </div>
+
+            <!-- flower 3 -->
+
+            <div class="flower three">
+
+                <span class="petal p1"></span>
+                <span class="petal p2"></span>
+                <span class="petal p3"></span>
+                <span class="petal p4"></span>
+
+                <span class="flower-center"></span>
+
+            </div>
+
+            <!-- flower 4 -->
+
+            <div class="flower four">
+
+                <span class="petal p1"></span>
+                <span class="petal p2"></span>
+                <span class="petal p3"></span>
+                <span class="petal p4"></span>
+
+                <span class="flower-center"></span>
+
+            </div>
+
+            <!-- flower 5 -->
+
+            <div class="flower five">
+
+                <span class="petal p1"></span>
+                <span class="petal p2"></span>
+                <span class="petal p3"></span>
+                <span class="petal p4"></span>
+
+                <span class="flower-center"></span>
+
+            </div>
+
+        </div>
+
+        <h2>This one's for you 💙</h2>
+
+        <p>
+            Just a little reminder that you don't have to carry everything alone.
+        </p>
+
+        <button onclick="showScreen(4)">
+            Click here 💌
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE 1
+========================= -->
+
+<section class="screen" id="screen4">
+
+    <div class="card message-card">
+
+        <h2>For you, beh 💙</h2>
+
+        <p>
+            Hi beh, I just wanted to check on you. I know lately medyo nahihirapan ka sa acads, and I feel like ang bigat na talaga for you. I know you’ve been trying, kahit minsan feeling mo wala kang enough progress.
+        </p>
+
+        <button onclick="showScreen(5)">
+            Next →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE 2
+========================= -->
+
+<section class="screen" id="screen5">
+
+    <div class="card message-card">
+
+        <h2>Take a breath 🌷</h2>
+
+        <p>
+            Please don’t be too hard on yourself, beh. Hindi naman kailangan na every day productive ka or everything has to go right. If you’re tired, pahinga ka muna. You’ve been doing so much already, and you deserve a break without feeling guilty about it.
+        </p>
+
+        <button onclick="showScreen(6)">
+            Next →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE 3
+========================= -->
+
+<section class="screen" id="screen6">
+
+    <div class="card message-card">
+
+        <h2>You don't have to do it alone 🫂</h2>
+
+        <p>
+            I just want you to know na I’m here for you, okay? You don’t have to pretend na okay ka if you’re not. If you want to rant, cry, magulo utak mo, or kahit gusto mo lang ng kasama, message mo lang ako. You don’t have to deal with everything by yourself.
+        </p>
+
+        <button onclick="showScreen(7)">
+            Next →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MESSAGE 4
+========================= -->
+
+<section class="screen" id="screen7">
+
+    <div class="card message-card">
+
+        <h2>You are more than your grades 💙</h2>
+
+        <p>
+            And please remember na your grades don’t change how I see you. Hindi ka failure just because nahihirapan ka ngayon. I know you, and I know how much you care and how hard you’re trying.
+        </p>
+
+        <button onclick="showScreen(8)">
+            Next →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL MESSAGE
+========================= -->
+
+<section class="screen" id="screen8">
+
+    <div class="card message-card">
+
+        <h2>One step at a time 🌷</h2>
+
+        <p>
+            Take care of yourself din, beh. Eat, sleep, breathe, and rest when you need to. We’ll worry about the acads little by little. For now, I just want you to be okay. I’m always here for you. ❤️
+        </p>
+
+        <p class="final-note">
+            I hope you’ll like it. I sang this for you. 💙
+        </p>
+
+        <div class="final-hug">
+            🫂🫂🫂
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   CHANGE SCREEN
+========================= */
+
+function showScreen(number) {
+
+    document.querySelectorAll(".screen").forEach(function(screen) {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById("screen" + number).classList.add("active");
+}
+
+
+/* =========================
+   PLAY YOUR VOICE
+========================= */
+
+const music = document.getElementById("bgMusic");
+
+function startMusic() {
+
+    music.volume = 0.7;
+
+    music.play().catch(function(error) {
+
+        console.log("Audio waiting for user interaction.");
+
+    });
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+function startSurprise() {
+
+    startMusic();
+
+    showScreen(2);
+
+}
+
+
+/* =========================
+   OPEN GIFT
+========================= */
+
+function openGift() {
+
+    const gift = document.getElementById("gift");
+
+    gift.classList.add("open");
+
+    setTimeout(function() {
+
+        showScreen(3);
+
+    }, 1000);
+
+}
+
+</script>
+
+</body>
+</html>
